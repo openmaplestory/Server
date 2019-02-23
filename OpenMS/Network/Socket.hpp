@@ -42,7 +42,10 @@ Created: 22/02/2019 19:34
 #pragma region Linux
 #ifdef linux
 
-// TODO: Linux sockets
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <unistd.h>
 
 #endif // linux
 #pragma endregion
@@ -62,7 +65,8 @@ public:
 		#pragma region Windows
 		#ifdef _WIN32
 
-		initWsa();
+		// Initializing WSA for WinSock use
+		initSock();
 		
 		#endif // _WIN32
 		#pragma endregion
@@ -84,7 +88,21 @@ public:
 
 	~Socket() // Destructor
 	{
+		#pragma region Windows
+		#ifndef _WIN32
 
+		quitSock();
+
+		#endif // _WIN32
+		#pragma endregion
+
+		#pragma region Linux
+		#ifdef linux
+
+				// TODO: Linux sockets
+
+		#endif // linux
+		#pragma endregion
 	}
 
     Socket& operator=(const Socket& other) = delete; // Copy assignment operator
@@ -97,13 +115,19 @@ private:
 	#pragma region Windows
 	#ifdef _WIN32
 
-    void initWsa()
+    static void initSock()
     {
         WSAData wsa_data;
 
         if (WSAStartup(MAKEWORD(2,2), &wsa_data))
             throw Network::WsaException();
     }
+
+	static void quitSock()
+	{
+		if (WSACleanup())
+			throw Network::WsaException();
+	}
 
 	#endif // _WIN32
 	#pragma endregion
