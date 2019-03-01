@@ -77,42 +77,42 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenMS\;$(ProjectDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\Linux\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\Linux\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenMS\;$(ProjectDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\Linux\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\Linux\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenMS\;$(ProjectDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\Linux\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\Linux\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenMS\;$(ProjectDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\Linux\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\Linux\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenMS\;$(ProjectDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\Linux\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\Linux\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenMS\;$(ProjectDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\Linux\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\Linux\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenMS\;$(ProjectDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\Linux\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\Linux\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenMS\;$(ProjectDir);$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\Linux\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\Linux\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>

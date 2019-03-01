@@ -49,7 +49,6 @@ using SocketBufferLength = int;
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
-#include <unistd.h>
 
 #define SOCKET_ERROR (-1)
 #define INVALID_SOCKET (0)
@@ -83,7 +82,7 @@ public:
 
 	ClientInfo accept();
 
-	void connect(/*address*/);
+	void connect(std::string ip, uint16_t port);
 
 	virtual Buffer read(size_t bytes_to_read) override;
 	virtual void write(Buffer buffer) override;
@@ -126,71 +125,3 @@ struct Socket::ClientInfo
 
 }
 }
-
-/*
-#ifdef _WIN32
-    // WINDOWS SOCKET IMPLEMENTATION
-    #include <WinSock2.h>
-    #include <WS2tcpip.h>
-    #include <iostream>
-    #include <string>
-    #include <exception>
-
-    #pragma comment(lib, "Ws2_32.lib")
-
-    class WsaStartupException : public std::exception
-    {
-        public:
-            explicit WsaStartupException(const char* message)
-            :   m_msg(message)
-                {
-                }
-
-            explicit WsaStartupException(const std::string& message)
-            :   m_msg(message)
-                {
-                }
-
-            virtual ~WsaStartupException() throw (){}
-
-            virtual const char* what() const throw ()
-            {
-                return m_msg.c_str();
-            }
-
-        protected:
-            std::string m_msg;
-    };
-
-    class Socket
-    {
-        public:
-            Socket(PCSTR port)
-            {
-                struct addrinfo *result = NULL;
-
-            }
-            ~Socket() = default;
-
-
-            static const int initWsa()
-            {
-                WSAData wsadata;
-                int initresult;
-
-                // Initialize Winsock
-                initresult = WSAStartup(MAKEWORD(2,2), &wsadata);
-                if (initresult)
-                    throw WsaStartupException("WSA Startup failed" + std::to_string(initresult));
-
-                return initresult;
-            }
-
-        private:
-            PCSTR m_port;
-    };
-#endif
-
-#ifdef linux
-    // LINUX SOCKET IMPLEMENTATION
-#endif*/

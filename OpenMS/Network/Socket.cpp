@@ -194,9 +194,26 @@ Socket::ClientInfo Socket::accept()
 	return client;
 }
 
-void Socket::connect(/*address*/)
+void Socket::connect(std::string ip, uint16_t port)
 {
-	// TODO: Implement connect
+	sockaddr_in connect_address;
+	connect_address.sin_port = htons(port);
+	connect_address.sin_family = m_family;
+
+	switch(inet_pton(AF_INET, resolveHostname(ip).c_str(), &connect_address.sin_addr.s_addr))
+	{
+		case -1:
+			// Error
+			throw Network::SocketException();
+		case 0:
+			// Invalid address
+			throw Network::SocketException();
+	}
+
+	auto name = reinterpret_cast<sockaddr *>(&connect_address);
+	if(::connect(m_socket, name, sizeof(*name)) == SOCKET_ERROR)
+		// Failed connecting address
+		throw Network::SocketException();
 }
 
 Buffer Socket::readSocket(SocketBufferLength bytes_to_read)
