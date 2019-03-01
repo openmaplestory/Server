@@ -27,28 +27,36 @@ Created: 22/02/2019 19:34
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
-#pragma region Windows
+#include "Common/Common.hpp"
+#include <string>
+#include <memory>
+#include "IO/IStream.hpp"
+
 #ifdef _WIN32
 
 #pragma comment(lib, "Ws2_32.lib")
 
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include "WsaException.hpp"
+
+using SocketBufferLength = int;
 
 #endif // _WIN32
-#pragma endregion
 
-#pragma region Linux
 #ifdef linux
 
-#include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 #include <unistd.h>
 
+#define SOCKET_ERROR (-1)
+#define INVALID_SOCKET (0)
+
+using SocketBufferLength = size_t;
+
 #endif // linux
-#pragma endregion
 
 using namespace OpenMS;
 
@@ -57,88 +65,63 @@ namespace OpenMS
 namespace Network
 {
 
-class Socket
+class Socket: public IO::IStream
 {
 public:
-    Socket() // Constructor
-    {
-		#pragma region Windows
-		#ifdef _WIN32
+	struct ClientInfo;
 
-		// Initializing WSA for WinSock use
-		initSock();
-		
-		#endif // _WIN32
-		#pragma endregion
+	Socket(ADDRESS_FAMILY ai_family = AF_INET, int ai_socktype = SOCK_STREAM, int ai_protocol = IPPROTO_TCP); // Constructor
+	
+	Socket(const Socket& other) = delete; // Copy constructor
+	Socket(Socket&& other) noexcept; // Move constructor
 
-		#pragma region Linux
-		#ifdef linux
+	~Socket(); // Destructor
 
-		// TODO: Linux sockets
-		
-		#endif // linux
-		#pragma endregion
-    }
+	void bind(std::string ip, uint16_t port);
 
-    Socket(const Socket& other) = delete; // Copy constructor
-	Socket(Socket&& other) noexcept // Move constructor
-	{
-		UNREFERENCED_PARAMETER(other);
-	}
+	void listen(int connections);
 
-	~Socket() // Destructor
-	{
-		#pragma region Windows
-		#ifndef _WIN32
+	ClientInfo accept();
 
-		quitSock();
+	void connect(/*address*/);
 
-		#endif // _WIN32
-		#pragma endregion
+	virtual Buffer read(size_t bytes_to_read) override;
+	virtual void write(Buffer buffer) override;
 
-		#pragma region Linux
-		#ifdef linux
+	Socket& operator=(const Socket& other) = delete; // Copy assignment operator
+	Socket& operator=(Socket&& other) noexcept; // Move assignment operator
 
-				// TODO: Linux sockets
+protected:
+	Socket(const Socket& base_socket, SOCKET os_socket); // Constructor
 
-		#endif // linux
-		#pragma endregion
-	}
-
-    Socket& operator=(const Socket& other) = delete; // Copy assignment operator
-	Socket& operator=(Socket&& other) noexcept // Move assignment operator
-	{
-		UNREFERENCED_PARAMETER(other);
-	}
-
-private:
-	#pragma region Windows
 	#ifdef _WIN32
 
-    static void initSock()
-    {
-        WSAData wsa_data;
-
-        if (WSAStartup(MAKEWORD(2,2), &wsa_data))
-            throw Network::WsaException();
-    }
-
-	static void quitSock()
-	{
-		if (WSACleanup())
-			throw Network::WsaException();
-	}
+	void initWsa();
 
 	#endif // _WIN32
-	#pragma endregion
 
-	#pragma region Linux
-	#ifdef linux
+	void initSock();
+	void cleanupSock();
 
-	// TODO: Linux sockets
-	
-	#endif // linux
-	#pragma endregion
+	virtual Buffer readSocket(SocketBufferLength bytes_to_read);
+	virtual void writeSocket(Buffer buffer);
+
+	static std::string resolveHostname(std::string hostname, int ai_family = AF_INET);
+
+	ADDRESS_FAMILY m_family = 0;
+	int m_socktype = 0;
+	int m_protocol = 0;
+
+	SOCKET m_socket = static_cast<SOCKET>(0);
+};
+
+struct Socket::ClientInfo
+{
+	std::string ip;
+	uint16_t port;
+	Socket socket;
+
+	ClientInfo(std::string ip, uint16_t port, Socket socket); // Constructor
 };
 
 }
@@ -162,19 +145,19 @@ private:
             :   m_msg(message)
                 {
                 }
-            
+
             explicit WsaStartupException(const std::string& message)
             :   m_msg(message)
                 {
                 }
-            
+
             virtual ~WsaStartupException() throw (){}
 
             virtual const char* what() const throw ()
             {
                 return m_msg.c_str();
             }
-        
+
         protected:
             std::string m_msg;
     };
@@ -185,7 +168,7 @@ private:
             Socket(PCSTR port)
             {
                 struct addrinfo *result = NULL;
-                
+
             }
             ~Socket() = default;
 

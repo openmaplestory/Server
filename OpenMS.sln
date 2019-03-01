@@ -3,24 +3,57 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenMS", "OpenMS\OpenMS.vcxproj", "{CC09B55D-2805-498C-BDC7-C04F31C97DC0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenMSWindows", "OpenMSWindows\OpenMSWindows.vcxproj", "{E31B1F76-842E-4477-A0E3-6ED282B46537}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenMS", "OpenMS\OpenMS.vcxitems", "{78C44CA8-0BDA-4576-BA81-8FE37FAE2A96}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenMSLinux", "OpenMSLinux\OpenMSLinux.vcxproj", "{0DD21296-8E93-459D-ADF4-125EFE6D887A}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		OpenMS\OpenMS.vcxitems*{0dd21296-8e93-459d-adf4-125efe6d887a}*SharedItemsImports = 4
+		OpenMS\OpenMS.vcxitems*{78c44ca8-0bda-4576-ba81-8fe37fae2a96}*SharedItemsImports = 9
+		OpenMS\OpenMS.vcxitems*{e31b1f76-842e-4477-a0e3-6ed282b46537}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Debug|ARM64 = Debug|ARM64
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|ARM = Release|ARM
+		Release|ARM64 = Release|ARM64
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CC09B55D-2805-498C-BDC7-C04F31C97DC0}.Debug|x64.ActiveCfg = Debug|x64
-		{CC09B55D-2805-498C-BDC7-C04F31C97DC0}.Debug|x64.Build.0 = Debug|x64
-		{CC09B55D-2805-498C-BDC7-C04F31C97DC0}.Debug|x86.ActiveCfg = Debug|Win32
-		{CC09B55D-2805-498C-BDC7-C04F31C97DC0}.Debug|x86.Build.0 = Debug|Win32
-		{CC09B55D-2805-498C-BDC7-C04F31C97DC0}.Release|x64.ActiveCfg = Release|x64
-		{CC09B55D-2805-498C-BDC7-C04F31C97DC0}.Release|x64.Build.0 = Release|x64
-		{CC09B55D-2805-498C-BDC7-C04F31C97DC0}.Release|x86.ActiveCfg = Release|Win32
-		{CC09B55D-2805-498C-BDC7-C04F31C97DC0}.Release|x86.Build.0 = Release|Win32
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Debug|ARM.ActiveCfg = Debug|Win32
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Debug|x64.ActiveCfg = Debug|x64
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Debug|x64.Build.0 = Debug|x64
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Debug|x86.ActiveCfg = Debug|Win32
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Debug|x86.Build.0 = Debug|Win32
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Release|ARM.ActiveCfg = Release|Win32
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Release|ARM64.ActiveCfg = Release|Win32
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Release|x64.ActiveCfg = Release|x64
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Release|x64.Build.0 = Release|x64
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Release|x86.ActiveCfg = Release|Win32
+		{E31B1F76-842E-4477-A0E3-6ED282B46537}.Release|x86.Build.0 = Release|Win32
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Debug|ARM.ActiveCfg = Debug|ARM
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Debug|ARM.Build.0 = Debug|ARM
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Debug|ARM64.Build.0 = Debug|ARM64
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Debug|x64.ActiveCfg = Debug|x64
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Debug|x64.Build.0 = Debug|x64
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Debug|x86.ActiveCfg = Debug|x86
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Debug|x86.Build.0 = Debug|x86
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Release|ARM.ActiveCfg = Release|ARM
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Release|ARM.Build.0 = Release|ARM
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Release|ARM64.ActiveCfg = Release|ARM64
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Release|ARM64.Build.0 = Release|ARM64
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Release|x64.ActiveCfg = Release|x64
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Release|x64.Build.0 = Release|x64
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Release|x86.ActiveCfg = Release|x86
+		{0DD21296-8E93-459D-ADF4-125EFE6D887A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

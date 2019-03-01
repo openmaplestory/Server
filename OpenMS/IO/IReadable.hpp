@@ -22,36 +22,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created: 22/02/2019 20:53
+Created: 23/02/2019 16:50
 
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
-#ifdef _WIN32
-
 #include "Common/Common.hpp"
-#include <exception>
-#include <string>
-#include "Exceptions/Exception.hpp"
-#include "Exceptions/ExceptionStatus.hpp"
-
-using namespace OpenMS;
+#include <cstring>
 
 namespace OpenMS
 {
-namespace Network
+namespace IO
 {
 
-class WsaException: public Exceptions::Exception
+class IReadable
 {
 public:
-    WsaException():
-        Exceptions::Exception(Exceptions::ExceptionStatus::WSA_STARTUP_FAILED)
-    {
-    }
+	virtual Buffer read(size_t bytes_to_read) = 0;
+
+	template <typename T>
+	T read()
+	{
+		Buffer raw = read(sizeof(T));
+		T object;
+		std::memcpy(&object, raw.data(), sizeof(object));
+		return object;
+	}
 };
 
 }
 }
-
-#endif // _WIN32

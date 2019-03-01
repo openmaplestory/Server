@@ -22,12 +22,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created: 22/02/2019 20:53
+Created: 23/02/2019 21:01
 
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
-
-#ifdef _WIN32
 
 #include "Common/Common.hpp"
 #include <exception>
@@ -42,10 +40,10 @@ namespace OpenMS
 namespace Network
 {
 
-class WsaException: public Exceptions::Exception
+class SocketException: public Exceptions::Exception
 {
 public:
-    WsaException():
+    SocketException():
         Exceptions::Exception(Exceptions::ExceptionStatus::WSA_STARTUP_FAILED)
     {
     }
@@ -53,5 +51,3 @@ public:
 
 }
 }
-
-#endif // _WIN32

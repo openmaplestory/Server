@@ -25,14 +25,16 @@ SOFTWARE.
 Created: 22/02/2019 20:59
 
 //////////////////////////////////////////////////////////////////////////////*/
+#pragma once
 
+#include "Common/Common.hpp"
 #include <exception>
 #include <string>
 #include <sstream>
 #include <iomanip>
 #include "ExceptionStatus.hpp"
 
-using namespace OpenMS; 
+using namespace OpenMS;
 
 namespace OpenMS
 {
@@ -45,17 +47,24 @@ class Exception: public std::exception
 public:
 
     Exception(Exceptions::ExceptionStatus status, const std::string& message = std::string()):
-        m_status(status),
-        std::exception((message == std::string() ? createExceptionMessage(status) : message).c_str())
+		std::exception(),
+		m_message(message),
+        m_status(status)
     {
-    }    
+    }
 
 	Exceptions::ExceptionStatus getStatus() const
     {
         return m_status;
     }
 
+	virtual const char* what() const noexcept override
+	{
+		return m_message.c_str();
+	}
+
 private:
+	std::string m_message;
 	Exceptions::ExceptionStatus m_status;
 
     static std::string createExceptionMessage(Exceptions::ExceptionStatus status)

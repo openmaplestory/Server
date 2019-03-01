@@ -22,36 +22,25 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created: 22/02/2019 20:53
+Created: 23/02/2019 17:00
 
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
-#ifdef _WIN32
-
 #include "Common/Common.hpp"
-#include <exception>
-#include <string>
-#include "Exceptions/Exception.hpp"
-#include "Exceptions/ExceptionStatus.hpp"
+#include "IO/IReadable.hpp"
+#include "IO/IWriteable.hpp"
 
 using namespace OpenMS;
 
 namespace OpenMS
 {
-namespace Network
+namespace IO
 {
 
-class WsaException: public Exceptions::Exception
+class IStream: public IO::IReadable, public IO::IWriteable
 {
-public:
-    WsaException():
-        Exceptions::Exception(Exceptions::ExceptionStatus::WSA_STARTUP_FAILED)
-    {
-    }
 };
 
 }
 }
-
-#endif // _WIN32

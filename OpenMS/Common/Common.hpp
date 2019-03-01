@@ -22,36 +22,43 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created: 22/02/2019 20:53
+Created: 01/03/2019 14:31
 
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
 #ifdef _WIN32
 
-#include "Common/Common.hpp"
-#include <exception>
-#include <string>
-#include "Exceptions/Exception.hpp"
-#include "Exceptions/ExceptionStatus.hpp"
-
-using namespace OpenMS;
-
-namespace OpenMS
-{
-namespace Network
-{
-
-class WsaException: public Exceptions::Exception
-{
-public:
-    WsaException():
-        Exceptions::Exception(Exceptions::ExceptionStatus::WSA_STARTUP_FAILED)
-    {
-    }
-};
-
-}
-}
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
 
 #endif // _WIN32
+
+#ifdef linux
+
+#include <unistd.h>
+
+#endif // linux
+
+#include <vector>
+#include <cinttypes>
+
+using Buffer = std::vector<uint8_t>;
+
+#ifdef _WIN32
+
+using socklen_t = int;
+using ssize_t = SSIZE_T;
+
+#endif // _WIN32
+
+#ifdef linux
+
+using SOCKET = int;
+using ADDRESS_FAMILY = unsigned short;
+
+#endif // linux
+
+#ifndef UNREFERENCED_PARAMETER
+#define UNREFERENCED_PARAMETER(parameter) ((void)parameter)
+#endif

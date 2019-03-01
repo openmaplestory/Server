@@ -27,10 +27,11 @@ Created: 22/02/2019 21:44
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
+#include "Common/Common.hpp"
 #include <map>
 #include <string>
 
-#define EXCEPTION_CODE_NAME_PAIR(exceptionStatus) { ExceptionStatus::##exceptionStatus, #exceptionStatus }
+#define EXCEPTION_CODE_NAME_PAIR(exceptionStatus) { ExceptionStatus::exceptionStatus, #exceptionStatus }
 
 namespace OpenMS
 {
@@ -43,15 +44,15 @@ enum class ExceptionStatus: ExceptionStatusType
     WSA_STARTUP_FAILED                 = 0x0000
 };
 
-std::string exceptionStatusName(ExceptionStatus status)
+static std::string exceptionStatusName(ExceptionStatus status)
 {
     static const std::map<ExceptionStatus, const char *> statusNames = {
         EXCEPTION_CODE_NAME_PAIR(WSA_STARTUP_FAILED)
     };
-    
+
     auto lookupIterator = statusNames.find(status);
     return lookupIterator == statusNames.end() ? "UNKNOWN_EXCEPTION" : lookupIterator->second;
-} 
+}
 
 }
 }
