@@ -27,7 +27,7 @@ Created: 23/02/2019 16:50
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
-#include "Common/Common.hpp"
+#include "OpenMS/Common/Common.hpp"
 #include <cstring>
 
 namespace OpenMS
@@ -35,18 +35,17 @@ namespace OpenMS
 namespace IO
 {
 
-class IReadable
+class IWriteable
 {
 public:
-	virtual Buffer read(size_t bytes_to_read) = 0;
+	virtual void write(Buffer bytes_to_write) = 0;
 
 	template <typename T>
-	T read()
+	void write(T object)
 	{
-		Buffer raw = read(sizeof(T));
-		T object;
-		std::memcpy(&object, raw.data(), sizeof(object));
-		return object;
+		Buffer raw(sizeof(object));
+		std::memcpy(raw.data(), &object, sizeof(object));
+		write(raw);
 	}
 };
 

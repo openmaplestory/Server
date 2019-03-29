@@ -1,0 +1,3 @@
+[submodule "OpenMS/vendor/spdlog"]
+	path = OpenMS/vendor/spdlog
+	url = https://github.com/gabime/spdlog

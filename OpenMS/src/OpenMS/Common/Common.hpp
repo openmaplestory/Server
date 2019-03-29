@@ -7,7 +7,7 @@ Copyright (c) 2019 OpenMaplestory
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+to use, copy, modify, merge, publish, distribute, sub license, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
@@ -22,37 +22,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created: 22/02/2019 21:44
+Created: 01/03/2019 14:31
 
 //////////////////////////////////////////////////////////////////////////////*/
-#pragma once
+#include "omspch.h"
 
-#include "Common/Common.hpp"
-#include <map>
-#include <string>
+using Buffer = std::vector<uint8_t>;
 
-#define EXCEPTION_CODE_NAME_PAIR(exceptionStatus) { ExceptionStatus::exceptionStatus, #exceptionStatus }
+#ifdef _WIN32
 
-namespace OpenMS
-{
-namespace Exceptions
-{
+using socklen_t = int;
+using ssize_t = SSIZE_T;
 
-using ExceptionStatusType = uint16_t;
-enum class ExceptionStatus: ExceptionStatusType
-{
-    WSA_STARTUP_FAILED                 = 0x0000
-};
+#endif // _WIN32
 
-static std::string exceptionStatusName(ExceptionStatus status)
-{
-    static const std::map<ExceptionStatus, const char *> statusNames = {
-        EXCEPTION_CODE_NAME_PAIR(WSA_STARTUP_FAILED)
-    };
+#ifdef linux
 
-    auto lookupIterator = statusNames.find(status);
-    return lookupIterator == statusNames.end() ? "UNKNOWN_EXCEPTION" : lookupIterator->second;
-}
+using SOCKET = int;
+using ADDRESS_FAMILY = unsigned short;
 
-}
-}
+#endif // Linux
+
+#ifndef UNREFERENCED_PARAMETER
+#define UNREFERENCED_PARAMETER(parameter) ((void)parameter)
+#endif

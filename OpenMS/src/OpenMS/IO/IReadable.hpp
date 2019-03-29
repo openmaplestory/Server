@@ -22,61 +22,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created: 22/02/2019 20:59
+Created: 23/02/2019 16:50
 
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
-#include "Common/Common.hpp"
-#include <exception>
-#include <string>
-#include <sstream>
-#include <iomanip>
-#include "ExceptionStatus.hpp"
-
-using namespace OpenMS;
+#include "OpenMS/Common/Common.hpp"
+#include <cstring>
 
 namespace OpenMS
 {
-namespace Exceptions
+namespace IO
 {
 
-class Exception: public std::exception
+class IReadable
 {
-
 public:
+	virtual Buffer read(std::size_t bytes_to_read) = 0;
 
-    Exception(Exceptions::ExceptionStatus status, const std::string& message = std::string()):
-		std::exception(),
-		m_message(message),
-        m_status(status)
-    {
-    }
-
-	Exceptions::ExceptionStatus getStatus() const
-    {
-        return m_status;
-    }
-
-	virtual const char* what() const noexcept override
+	template <typename T>
+	T read()
 	{
-		return m_message.c_str();
+		Buffer raw = read(sizeof(T));
+		T object;
+		std::memcpy(&object, raw.data(), sizeof(object));
+		return object;
 	}
-
-private:
-	std::string m_message;
-	Exceptions::ExceptionStatus m_status;
-
-    static std::string createExceptionMessage(Exceptions::ExceptionStatus status)
-    {
-        std::stringstream exceptionString;
-
-        exceptionString << "Exception (0x";
-        exceptionString << std::setw(4) << std::setfill('0') << std::hex << (Exceptions::ExceptionStatusType)status;
-        exceptionString << "): " << Exceptions::exceptionStatusName(status);
-
-        return exceptionString.str();
-    }
 };
 
 }

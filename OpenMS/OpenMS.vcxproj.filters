@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="OpenMS">
+      <UniqueIdentifier>{57874AC8-4329-759E-2CE4-88F21825FCEE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenMS\Common">
+      <UniqueIdentifier>{AF0CFD18-1BCD-784F-E407-C2CC5087BD2B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenMS\Exceptions">
+      <UniqueIdentifier>{E8E60FB6-54FD-0D4C-9D74-996D09CADED3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenMS\IO">
+      <UniqueIdentifier>{9EAD41A6-0A18-F61C-5356-A7C2BFFFD371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenMS\Logger">
+      <UniqueIdentifier>{4615F82D-B2D5-7364-7B10-BDE1E78FB840}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenMS\Network">
+      <UniqueIdentifier>{D0D08F70-BC9E-8376-A532-F49C919F5FDB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\OpenMS.hpp" />
+    <ClInclude Include="src\OpenMS\Application.hpp">
+      <Filter>OpenMS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\Common\Common.hpp">
+      <Filter>OpenMS\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\Core.hpp">
+      <Filter>OpenMS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\EntryPoint.hpp">
+      <Filter>OpenMS</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\Exceptions\Exception.hpp">
+      <Filter>OpenMS\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\Exceptions\ExceptionStatus.hpp">
+      <Filter>OpenMS\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\IO\IReadable.hpp">
+      <Filter>OpenMS\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\IO\IStream.hpp">
+      <Filter>OpenMS\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\IO\IWriteable.hpp">
+      <Filter>OpenMS\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\Logger\Log.hpp">
+      <Filter>OpenMS\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\Network\Socket.hpp">
+      <Filter>OpenMS\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\Network\SocketException.hpp">
+      <Filter>OpenMS\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OpenMS\Network\WsaException.hpp">
+      <Filter>OpenMS\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="src\omspch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\OpenMS\Application.cpp">
+      <Filter>OpenMS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenMS\Logger\Log.cpp">
+      <Filter>OpenMS\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OpenMS\Network\Socket.cpp">
+      <Filter>OpenMS\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\omspch.cpp" />
+  </ItemGroup>
+</Project>

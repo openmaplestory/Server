@@ -7,7 +7,7 @@ Copyright (c) 2019 OpenMaplestory
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+to use, copy, modify, merge, publish, distribute, sub license, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
@@ -22,25 +22,21 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created: 23/02/2019 17:00
+Created: 29/03/2019 23:28
 
 //////////////////////////////////////////////////////////////////////////////*/
+
 #pragma once
 
-#include "Common/Common.hpp"
-#include "IO/IReadable.hpp"
-#include "IO/IWriteable.hpp"
+extern OpenMS::Application* OpenMS::CreateApplication();
 
-using namespace OpenMS;
-
-namespace OpenMS
+int main(int argc, char** argv)
 {
-namespace IO
-{
+	OpenMS::Log::Init();
+	OMS_CORE_WARN("Started Server!");
+	OMS_INFO("Testing OpenMS v{0}.{1}", 1, 0);
 
-class IStream: public IO::IReadable, public IO::IWriteable
-{
-};
-
-}
+	auto app = OpenMS::CreateApplication();
+	app->Run();
+	delete app;
 }

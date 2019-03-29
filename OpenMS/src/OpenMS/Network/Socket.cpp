@@ -26,10 +26,12 @@ Created: 22/02/2019 17:09
 
 //////////////////////////////////////////////////////////////////////////////*/
 
-#include "Common/Common.hpp"
-#include "Network/Socket.hpp"
-#include "Network/SocketException.hpp"
-#include "Network/WsaException.hpp"
+#include "omspch.h"
+
+#include "OpenMS/Common/Common.hpp"
+#include "OpenMS/Network/Socket.hpp"
+#include "OpenMS/Network/SocketException.hpp"
+#include "OpenMS/Network/WsaException.hpp"
 
 using namespace OpenMS;
 using namespace OpenMS::Network;

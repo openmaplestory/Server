@@ -27,11 +27,10 @@ Created: 23/02/2019 21:01
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
-#include "Common/Common.hpp"
-#include <exception>
-#include <string>
-#include "Exceptions/Exception.hpp"
-#include "Exceptions/ExceptionStatus.hpp"
+#include "omspch.h"
+#include "OpenMS/Common/Common.hpp"
+#include "OpenMS/Exceptions/Exception.hpp"
+#include "OpenMS/Exceptions/ExceptionStatus.hpp"
 
 using namespace OpenMS;
 

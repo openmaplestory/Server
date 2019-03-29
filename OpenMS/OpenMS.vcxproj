@@ -15,26 +15,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4773823F-B328-FB34-3C1D-F50BA8D1F138}</ProjectGuid>
+    <ProjectGuid>{57874AC8-4329-759E-2CE4-88F21825FCEE}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>OpenMSLinux</RootNamespace>
+    <RootNamespace>OpenMS</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
@@ -54,82 +55,120 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-x86_64\OpenMSLinux\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-x86_64\OpenMSLinux\</IntDir>
-    <TargetName>OpenMSLinux</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <OutDir>..\bin\Debug-windows-x86_64\OpenMS\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\OpenMS\</IntDir>
+    <TargetName>OpenMS</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Release-windows-x86_64\OpenMSLinux\</OutDir>
-    <IntDir>..\bin-int\Release-windows-x86_64\OpenMSLinux\</IntDir>
-    <TargetName>OpenMSLinux</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <OutDir>..\bin\Release-windows-x86_64\OpenMS\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\OpenMS\</IntDir>
+    <TargetName>OpenMS</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Dist-windows-x86_64\OpenMSLinux\</OutDir>
-    <IntDir>..\bin-int\Dist-windows-x86_64\OpenMSLinux\</IntDir>
-    <TargetName>OpenMSLinux</TargetName>
-    <TargetExt>.exe</TargetExt>
+    <OutDir>..\bin\Dist-windows-x86_64\OpenMS\</OutDir>
+    <IntDir>..\bin-int\Dist-windows-x86_64\OpenMS\</IntDir>
+    <TargetName>OpenMS</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>omspch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NGC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\OpenMS\src;..\{IncludeDir.spdlog};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OMS_PLATFORM_WINDOWS;OMS_BUILD_DLL;OMS_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\OpenMS\OpenMS.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\OpenMS\OpenMS.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\OpenMS\OpenMS.dll "..\bin\Debug-windows-x86_64\OpenMSWindows" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\OpenMS\OpenMS.dll "..\bin\Debug-windows-x86_64\OpenMSWindows" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>omspch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NGC_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\OpenMS\src;..\{IncludeDir.spdlog};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OMS_PLATFORM_WINDOWS;OMS_BUILD_DLL;OMS_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ImportLibrary>..\bin\Release-windows-x86_64\OpenMS\OpenMS.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\OpenMS\OpenMS.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\OpenMS\OpenMS.dll "..\bin\Release-windows-x86_64\OpenMSWindows" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\OpenMS\OpenMS.dll "..\bin\Release-windows-x86_64\OpenMSWindows" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>omspch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>NGC_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\OpenMS\src;..\{IncludeDir.spdlog};%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OMS_PLATFORM_WINDOWS;OMS_BUILD_DLL;OMS_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ImportLibrary>..\bin\Dist-windows-x86_64\OpenMS\OpenMS.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\OpenMS\OpenMS.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\OpenMS\OpenMS.dll "..\bin\Dist-windows-x86_64\OpenMSWindows" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\OpenMS\OpenMS.dll "..\bin\Dist-windows-x86_64\OpenMSWindows" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenMS\OpenMS.vcxproj">
-      <Project>{57874AC8-4329-759E-2CE4-88F21825FCEE}</Project>
-    </ProjectReference>
+    <ClInclude Include="src\OpenMS.hpp" />
+    <ClInclude Include="src\OpenMS\Application.hpp" />
+    <ClInclude Include="src\OpenMS\Common\Common.hpp" />
+    <ClInclude Include="src\OpenMS\Core.hpp" />
+    <ClInclude Include="src\OpenMS\EntryPoint.hpp" />
+    <ClInclude Include="src\OpenMS\Exceptions\Exception.hpp" />
+    <ClInclude Include="src\OpenMS\Exceptions\ExceptionStatus.hpp" />
+    <ClInclude Include="src\OpenMS\IO\IReadable.hpp" />
+    <ClInclude Include="src\OpenMS\IO\IStream.hpp" />
+    <ClInclude Include="src\OpenMS\IO\IWriteable.hpp" />
+    <ClInclude Include="src\OpenMS\Logger\Log.hpp" />
+    <ClInclude Include="src\OpenMS\Network\Socket.hpp" />
+    <ClInclude Include="src\OpenMS\Network\SocketException.hpp" />
+    <ClInclude Include="src\OpenMS\Network\WsaException.hpp" />
+    <ClInclude Include="src\omspch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\OpenMS\Application.cpp" />
+    <ClCompile Include="src\OpenMS\Logger\Log.cpp" />
+    <ClCompile Include="src\OpenMS\Network\Socket.cpp" />
+    <ClCompile Include="src\omspch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

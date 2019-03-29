@@ -27,10 +27,10 @@ Created: 22/02/2019 19:34
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
-#include "Common/Common.hpp"
+#include "OpenMS/Common/Common.hpp"
 #include <string>
 #include <memory>
-#include "IO/IStream.hpp"
+#include "OpenMS/IO/IStream.hpp"
 
 #ifdef _WIN32
 
@@ -55,7 +55,7 @@ using SocketBufferLength = int;
 
 using SocketBufferLength = size_t;
 
-#endif // linux
+#endif // Linux
 
 using namespace OpenMS;
 

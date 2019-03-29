@@ -22,32 +22,36 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Created: 23/02/2019 16:50
+Created: 22/02/2019 21:44
 
 //////////////////////////////////////////////////////////////////////////////*/
 #pragma once
 
-#include "Common/Common.hpp"
-#include <cstring>
+#include "omspch.h"
+#include "OpenMS/Common/Common.hpp"
+
+#define EXCEPTION_CODE_NAME_PAIR(exceptionStatus) { ExceptionStatus::exceptionStatus, #exceptionStatus }
 
 namespace OpenMS
 {
-namespace IO
+namespace Exceptions
 {
 
-class IWriteable
+using ExceptionStatusType = uint16_t;
+enum class ExceptionStatus: ExceptionStatusType
 {
-public:
-	virtual void write(Buffer bytes_to_write) = 0;
-
-	template <typename T>
-	void write(T object)
-	{
-		Buffer raw(sizeof(object));
-		std::memcpy(raw.data(), &object, sizeof(object));
-		write(raw);
-	}
+    WSA_STARTUP_FAILED                 = 0x0000
 };
+
+static std::string exceptionStatusName(ExceptionStatus status)
+{
+    static const std::map<ExceptionStatus, const char *> statusNames = {
+        EXCEPTION_CODE_NAME_PAIR(WSA_STARTUP_FAILED)
+    };
+
+    auto lookupIterator = statusNames.find(status);
+    return lookupIterator == statusNames.end() ? "UNKNOWN_EXCEPTION" : lookupIterator->second;
+}
 
 }
 }
